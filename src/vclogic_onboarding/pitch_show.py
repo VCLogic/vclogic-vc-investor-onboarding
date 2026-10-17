@@ -25,6 +25,13 @@ def _slug(value):
     return value
 
 
+def validate_investor_slug(value):
+    # Official profile identifiers may contain consecutive hyphens.
+    if not isinstance(value, str) or len(value) > 200 or not re.fullmatch(r'[a-z0-9]+(?:-+[a-z0-9]+)*', value):
+        raise ValueError(f'invalid investor slug: {value!r}')
+    return value
+
+
 def _official(url):
     parsed = urlsplit(url)
     if parsed.scheme != 'https' or parsed.hostname not in {'www.thepitch.show', 'thepitch.show'} or parsed.port not in {None, 443} or parsed.username or parsed.password or parsed.fragment:
@@ -56,7 +63,7 @@ def collect(slug: str, output: Path, *, cache: Path | None = None,
     Cache mode never calls fetch. Completeness describes source collection, never
     human label audit. An original scraper cache cannot prove crawl coverage.
     """
-    _slug(slug)
+    validate_investor_slug(slug)
     if max_episodes is not None and (isinstance(max_episodes, bool) or not isinstance(max_episodes, int) or max_episodes < 1):
         raise ValueError('max_episodes must be a positive integer')
     output = Path(output).absolute()

@@ -110,8 +110,8 @@ def prepare(wiki: Path,output: Path,*,slug=None,display_name=None,firm=None,role
             'capabilities':{'wiki':True,'precedents':False,'portfolio_memory':False,'classifier':False},
             'eligible_pitches':[],'pitch_show':None}
         if from_pitch_show:
-            from .pitch_show import collect
-            site_slug=safe_slug(pitch_show_slug or slug,'pitch_show_slug')
+            from .pitch_show import collect, validate_investor_slug
+            site_slug=validate_investor_slug(pitch_show_slug or slug)
             metadata['pitch_show']=collect(site_slug,root/'source/pitch-show',
                 cache=Path(pitch_show_cache) if pitch_show_cache else None,max_episodes=max_episodes)
             if review:

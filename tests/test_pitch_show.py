@@ -209,3 +209,12 @@ def test_matching_episode_limit_stops_further_downloads(tmp_path):
     assert report['examined_count'] == 1
     assert BASE + '/1-company' not in seen
     assert BASE + '/2-other' not in seen
+
+
+def test_official_investor_slug_can_contain_consecutive_hyphens(tmp_path):
+    site_slug = 'rohit-gupta--future-communities-capital'
+    p = {url.replace(SLUG, site_slug): body.replace(SLUG, site_slug)
+         for url, body in pages().items()}
+    report = collect(site_slug, tmp_path/'out', fetch=fetcher(p))
+    assert report['complete']
+    assert report['episode_count'] == 2

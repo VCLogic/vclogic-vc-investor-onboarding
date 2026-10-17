@@ -174,3 +174,16 @@ def test_collect_only_does_not_initialize_model(wiki, tmp_path, monkeypatch):
     monkeypatch.setattr(extraction, 'make_provider', lambda *a: pytest.fail('model initialization'))
     prepare(wiki, tmp_path/'collected', from_pitch_show=True, collect_only=True, skip_indexes=True)
     assert not check_bundle(tmp_path/'collected')['capabilities']['precedents']
+
+
+def test_pitch_site_slug_can_differ_from_engine_slug(wiki,tmp_path,monkeypatch):
+    from vclogic_onboarding import pitch_show
+    site_slug='rohit-gupta--future-communities-capital'
+    def collect(slug,output,**kwargs):
+        assert slug==site_slug
+        output.mkdir(parents=True)
+        return {'episode_count':0,'complete':False}
+    monkeypatch.setattr(pitch_show,'collect',collect)
+    prepare(wiki,tmp_path/'bundle',from_pitch_show=True,pitch_show_slug=site_slug,
+            collect_only=True,skip_indexes=True)
+    assert check_bundle(tmp_path/'bundle')['vc_slug']=='test-investor'
