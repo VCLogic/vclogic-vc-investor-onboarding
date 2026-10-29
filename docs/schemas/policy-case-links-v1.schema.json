@@ -1,0 +1,265 @@
+{
+  "$defs": {
+    "AcceptedLink": {
+      "additionalProperties": false,
+      "properties": {
+        "applicability_established": {
+          "title": "Applicability Established",
+          "type": "boolean"
+        },
+        "comparison_statuses": {
+          "additionalProperties": {
+            "enum": [
+              "matches",
+              "differs",
+              "unknown"
+            ],
+            "type": "string"
+          },
+          "title": "Comparison Statuses",
+          "type": "object"
+        },
+        "comparisons": {
+          "items": {
+            "$ref": "#/$defs/Comparison"
+          },
+          "title": "Comparisons",
+          "type": "array"
+        },
+        "interpretation": {
+          "const": "model_inferred",
+          "title": "Interpretation",
+          "type": "string"
+        },
+        "link_id": {
+          "pattern": "^link-[0-9a-f]{24}$",
+          "title": "Link Id",
+          "type": "string"
+        },
+        "material_differences": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Material Differences",
+          "type": "array"
+        },
+        "policy_id": {
+          "title": "Policy Id",
+          "type": "string"
+        },
+        "rationale_ids": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Rationale Ids",
+          "type": "array"
+        },
+        "relationship": {
+          "enum": [
+            "supports",
+            "illustrates_an_exception",
+            "potentially_conflicts",
+            "not_applicable",
+            "unresolved"
+          ],
+          "title": "Relationship",
+          "type": "string"
+        },
+        "uncertainty": {
+          "minLength": 1,
+          "title": "Uncertainty",
+          "type": "string"
+        },
+        "verification": {
+          "$ref": "#/$defs/LinkJudgment"
+        }
+      },
+      "required": [
+        "policy_id",
+        "rationale_ids",
+        "relationship",
+        "comparisons",
+        "material_differences",
+        "uncertainty",
+        "link_id",
+        "applicability_established",
+        "comparison_statuses",
+        "verification",
+        "interpretation"
+      ],
+      "title": "AcceptedLink",
+      "type": "object"
+    },
+    "Comparison": {
+      "additionalProperties": false,
+      "properties": {
+        "context_keys": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Context Keys",
+          "type": "array"
+        },
+        "dimension": {
+          "title": "Dimension",
+          "type": "string"
+        },
+        "explanation": {
+          "minLength": 1,
+          "title": "Explanation",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "matches",
+            "differs",
+            "unknown"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "dimension",
+        "status",
+        "context_keys",
+        "explanation"
+      ],
+      "title": "Comparison",
+      "type": "object"
+    },
+    "LinkJudgment": {
+      "additionalProperties": false,
+      "properties": {
+        "accepted": {
+          "title": "Accepted",
+          "type": "boolean"
+        },
+        "explanation": {
+          "title": "Explanation",
+          "type": "string"
+        },
+        "policy_id": {
+          "title": "Policy Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "policy_id",
+        "accepted",
+        "explanation"
+      ],
+      "title": "LinkJudgment",
+      "type": "object"
+    },
+    "PolicyReference": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": "1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        }
+      },
+      "required": [
+        "schema_version",
+        "sha256"
+      ],
+      "title": "PolicyReference",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "case_id": {
+      "pattern": "^case-[0-9a-f]{24}$",
+      "title": "Case Id",
+      "type": "string"
+    },
+    "episode_slug": {
+      "title": "Episode Slug",
+      "type": "string"
+    },
+    "error": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Error"
+    },
+    "links": {
+      "items": {
+        "$ref": "#/$defs/AcceptedLink"
+      },
+      "title": "Links",
+      "type": "array"
+    },
+    "policy_artifact": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/PolicyReference"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "rejected": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Rejected",
+      "type": "array"
+    },
+    "schema_version": {
+      "const": "policy-case-links-v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "unavailable",
+        "available",
+        "verification_failed"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "unavailable_reason": {
+      "anyOf": [
+        {
+          "const": "missing_policies",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Unavailable Reason"
+    }
+  },
+  "required": [
+    "schema_version",
+    "case_id",
+    "episode_slug",
+    "policy_artifact",
+    "links",
+    "rejected",
+    "status",
+    "unavailable_reason"
+  ],
+  "title": "LinkArtifact",
+  "type": "object"
+}

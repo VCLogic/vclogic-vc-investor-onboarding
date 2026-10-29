@@ -94,7 +94,7 @@ def test_machine_corpus_has_portable_provenance_without_evaluation_labels(tmp_pa
     (episodes / '1-example.json').write_text(json.dumps(episode()))
     missing = {**episode(), 'slug': '2-missing', 'transcript': None}
     (episodes / '2-missing.json').write_text(json.dumps(missing))
-    result = enrich_machine(tmp_path, 'test-investor', ['Test'], Provider(proposal(), verification()), 'test-model')
+    result = enrich_machine(tmp_path, 'test-investor', ['Test'], Provider(proposal(), verification()), 'test-model', explanations=False)
     assert result['precedent_records'] == 1
     assert result['observed_machine_decisions'] == 1
     assert result['missing_transcripts'] == ['2-missing']
@@ -125,7 +125,7 @@ def test_human_rows_override_machine_and_other_episodes_remain_searchable(tmp_pa
     labels.write_text(json.dumps([human]))
     before = labels.read_bytes()
     provider = Provider(proposal(), verification())
-    result = enrich_machine(tmp_path, 'test-investor', ['Test'], provider, 'test-model')
+    result = enrich_machine(tmp_path, 'test-investor', ['Test'], provider, 'test-model', explanations=False)
     assert result['precedent_records'] == 2
     assert result['human_rows'] == 1
     assert result['machine_rows'] == 1
@@ -140,7 +140,7 @@ def test_human_rows_override_machine_and_other_episodes_remain_searchable(tmp_pa
 def test_abstention_still_builds_searchable_transcript(tmp_path):
     episodes = tmp_path/'source/pitch-show/episodes'; episodes.mkdir(parents=True)
     (episodes/'1-example.json').write_text(json.dumps(episode()))
-    result = enrich_machine(tmp_path, 'test-investor', ['Test'], Provider({**proposal(), 'context': 'later_diligence'}), 'test-model')
+    result = enrich_machine(tmp_path, 'test-investor', ['Test'], Provider({**proposal(), 'context': 'later_diligence'}), 'test-model', explanations=False)
     assert result['precedent_records'] == 1
     assert result['observed_machine_decisions'] == 0
     record = json.loads((tmp_path/'inputs/data/investors/test-investor/precedents/records/1-example.json').read_text())

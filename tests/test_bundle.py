@@ -146,7 +146,8 @@ def test_pitch_show_builds_machine_precedents_by_default(wiki, tmp_path, monkeyp
         (output/'episodes/1-example.json').write_text(json.dumps(episode()))
         return {'episode_count': 1, 'complete': True}
     monkeypatch.setattr(pitch_show, 'collect', collect)
-    monkeypatch.setattr(extraction, 'make_provider', lambda model=None: (Provider(proposal(), verification()), 'test-model'))
+    from test_explanations import draft, review as explanation_review
+    monkeypatch.setattr(extraction, 'make_provider', lambda model=None: (Provider(proposal(), verification(), draft(), explanation_review()), 'test-model'))
     class Embedder:
         metadata = embedding_settings()
         def embed(self, texts): return [[1., float(len(t)), .2] for t in texts]
@@ -178,7 +179,7 @@ def test_collect_only_does_not_initialize_model(wiki, tmp_path, monkeypatch):
 
 def test_pitch_site_slug_can_differ_from_engine_slug(wiki,tmp_path,monkeypatch):
     from vclogic_onboarding import pitch_show
-    site_slug='rohit-gupta--future-communities-capital'
+    site_slug='example-investor--example-ventures'
     def collect(slug,output,**kwargs):
         assert slug==site_slug
         output.mkdir(parents=True)

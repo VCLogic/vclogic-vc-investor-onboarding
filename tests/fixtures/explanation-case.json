@@ -1,0 +1,5 @@
+{
+  "slug": "1-example",
+  "panel": [{"slug": "test-investor", "name": "Test Investor"}],
+  "transcript": "Founder: We build software.\nTest: How many customers?\nFounder: Ten.\nTest: I am out because the market is too small."
+}

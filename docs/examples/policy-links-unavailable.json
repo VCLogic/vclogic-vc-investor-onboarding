@@ -1,0 +1,10 @@
+{
+  "case_id": "case-4f64820af621b926df7ee1ef",
+  "episode_slug": "1-example",
+  "links": [],
+  "policy_artifact": null,
+  "rejected": [],
+  "schema_version": "policy-case-links-v1",
+  "status": "unavailable",
+  "unavailable_reason": "missing_policies"
+}

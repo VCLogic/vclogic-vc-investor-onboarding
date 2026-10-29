@@ -12,4 +12,4 @@
 - [x] Exercise bounded live cached Mac transcripts with real generation if credentials exist. Prepare a new enriched bundle, build real indexes and install to a temporary workspace; inspect engine historical search/decision reads. Preserve user's existing bundle and active assessment workspace.
 - [x] Document command changes, provenance limitations and verified outcomes; commit and push authorized repository changes.
 
-Execution notes: The two-episode live generation and real retrieval handoff passed. Full collection/extraction and real indexing completed for 32 episodes. Temporary install, dense and contrastive retrieval, decision provenance, conditions, and target exclusion passed. 59 offline tests and package builds pass. Independent read-only review found no blocking issues. User approved automated extraction and configured the local credential. Work remained in this onboarding repository; no engine interface changes.
+Execution notes: Offline tests and package builds passed. Investor-specific live-run notes are retained locally outside version control. No engine interfaces changed.

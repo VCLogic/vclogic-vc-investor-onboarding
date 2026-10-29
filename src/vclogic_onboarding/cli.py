@@ -17,7 +17,7 @@ def parser():
     for name in ("slug", "display-name", "firm", "role"):
         build.add_argument(f"--{name}")
     build.add_argument("--alias", dest="aliases", action="append", default=[])
-    build.add_argument("--from-pitch-show", action="store_true", help="Collect Pitch Show evidence and extract historical decisions (uses model calls)")
+    build.add_argument("--from-pitch-show", action="store_true", help="Collect Pitch Show evidence and extract decisions, explanations and policy links (uses model calls)")
     build.add_argument("--pitch-show-slug", help="Investor slug on The Pitch website (defaults to wiki slug)")
     build.add_argument("--pitch-show-cache", type=Path, help="Reuse collected evidence; automatic extraction still calls the model")
     build.add_argument("--max-episodes", type=int, help="Limit matching investor episodes; candidate pages examined may be higher")

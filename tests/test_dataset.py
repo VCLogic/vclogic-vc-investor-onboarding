@@ -9,9 +9,13 @@ from vclogic_onboarding.bundle import prepare, check_bundle
 @pytest.mark.parametrize('collect_only', [True, False])
 def test_reviewed_pitch_collection_produces_audited_engine_inputs(wiki,tmp_path,monkeypatch,collect_only):
     from vclogic_onboarding import extraction
-    class NoCalls:
-        def generate(self, request): pytest.fail('human reviewed episode must not invoke model')
-    monkeypatch.setattr(extraction, 'make_provider', lambda model=None: (NoCalls(), 'test-model'))
+    from test_extraction import Provider
+    from test_explanations import draft, review as explanation_review
+    explanation = draft()
+    for ref in explanation['reasons'][0]['evidence'] + explanation['reasons'][0]['decision_connection']:
+        ref['speaker'] = 'Test Investor'
+    provider = Provider(explanation, explanation_review())
+    monkeypatch.setattr(extraction, 'make_provider', lambda model=None: (provider, 'test-model'))
     cache=tmp_path/'cache';(cache/'episodes').mkdir(parents=True)
     (cache/'profile.json').write_text(json.dumps({'id':'test-investor','name':'Test Investor','investments':[]}))
     (cache/'episodes/1-example.json').write_text(json.dumps({

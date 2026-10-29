@@ -212,7 +212,7 @@ def test_matching_episode_limit_stops_further_downloads(tmp_path):
 
 
 def test_official_investor_slug_can_contain_consecutive_hyphens(tmp_path):
-    site_slug = 'rohit-gupta--future-communities-capital'
+    site_slug = 'example-investor--example-ventures'
     p = {url.replace(SLUG, site_slug): body.replace(SLUG, site_slug)
          for url, body in pages().items()}
     report = collect(site_slug, tmp_path/'out', fetch=fetcher(p))

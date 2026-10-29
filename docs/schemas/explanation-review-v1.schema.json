@@ -1,0 +1,121 @@
+{
+  "$defs": {
+    "ReviewItem": {
+      "additionalProperties": false,
+      "properties": {
+        "accepted": {
+          "title": "Accepted",
+          "type": "boolean"
+        },
+        "conditions": {
+          "title": "Conditions",
+          "type": "boolean"
+        },
+        "decision_relevance": {
+          "title": "Decision Relevance",
+          "type": "boolean"
+        },
+        "direction": {
+          "title": "Direction",
+          "type": "boolean"
+        },
+        "disposition": {
+          "title": "Disposition",
+          "type": "boolean"
+        },
+        "explanation": {
+          "title": "Explanation",
+          "type": "string"
+        },
+        "importance": {
+          "title": "Importance",
+          "type": "boolean"
+        },
+        "key": {
+          "title": "Key",
+          "type": "string"
+        },
+        "quotation": {
+          "title": "Quotation",
+          "type": "boolean"
+        },
+        "revised_interpretation": {
+          "enum": [
+            "explicit",
+            "inferred"
+          ],
+          "title": "Revised Interpretation",
+          "type": "string"
+        },
+        "revised_role": {
+          "enum": [
+            "controlling",
+            "supporting",
+            "secondary",
+            "unresolved"
+          ],
+          "title": "Revised Role",
+          "type": "string"
+        },
+        "speaker": {
+          "title": "Speaker",
+          "type": "boolean"
+        },
+        "timing": {
+          "title": "Timing",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "key",
+        "accepted",
+        "explanation",
+        "speaker",
+        "quotation",
+        "decision_relevance",
+        "direction",
+        "importance",
+        "disposition",
+        "timing",
+        "conditions",
+        "revised_role",
+        "revised_interpretation"
+      ],
+      "title": "ReviewItem",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "context_keys": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Context Keys",
+      "type": "array"
+    },
+    "explanation": {
+      "title": "Explanation",
+      "type": "string"
+    },
+    "items": {
+      "items": {
+        "$ref": "#/$defs/ReviewItem"
+      },
+      "title": "Items",
+      "type": "array"
+    },
+    "window_verified": {
+      "title": "Window Verified",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "window_verified",
+    "context_keys",
+    "items",
+    "explanation"
+  ],
+  "title": "Review",
+  "type": "object"
+}

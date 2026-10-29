@@ -142,7 +142,10 @@ class _FailClosedProvider:
             raise ProviderFailure(f'decision extraction provider failed: {type(exc).__name__}: {exc}') from exc
 
 
-def enrich_machine(root: Path, slug: str, aliases: list[str], provider, model: str) -> dict:
+def enrich_machine(root: Path, slug: str, aliases: list[str], provider, model: str, *, explanations: bool = True) -> dict:
+    if explanations:
+        from .policy_links import load_policies
+        load_policies(root/'source/wiki', slug)  # Reject incompatible policy inputs before paid calls.
     transcripts = root / 'source/pitch-show/episodes'
     human_path = root / f'evaluation/labels/{slug}.json'
     human = {r['episode_slug']: r for r in read_json(human_path)} if human_path.exists() else {}
@@ -184,5 +187,8 @@ def enrich_machine(root: Path, slug: str, aliases: list[str], provider, model: s
         'machine_rows': len(machine), 'human_rows': len(human),
         'observed_machine_decisions': sum(r['pitch_window_decision'] != 'Unobserved' for r in machine),
         'missing_transcripts': missing, 'episode_statuses': statuses}
+    if explanations:
+        from .explanation_bundle import build_explanations
+        summary['semantic_coverage'] = build_explanations(root, slug, aliases, rows, provider, model)
     write_json(root / 'source/pitch-show/extraction/summary.json', summary)
     return summary

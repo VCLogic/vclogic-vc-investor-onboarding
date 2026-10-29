@@ -4,11 +4,13 @@
     "sha256": "50d2ab923b2348e5ba7954c5dcdafa680b89e9cbade261561783c8e5ec5b637c"
   },
   "rehearsal.toml": {
-    "source": "configs/rehearsal-charles-v41-grounded.toml",
+    "source": "assessment rehearsal configuration template",
     "sha256": "818bb306ad958992b9e813cf60da217cb18985cac8e944c17ec92d6f27c158c8"
   },
   "taxonomy.json": {
     "source": "inputs/taxonomy/codebook_v_final.json",
-    "sha256": "eaa8734819a3ac34dd19ee5f0bf6de925a793a1d25a2d361090dafc9b751e1fc"
+    "sha256": "ab28c0c76ff34b00fc36aa5e51074f83d00810d0dec4cdb3ae332e9ccb015d68",
+    "source_sha256": "eaa8734819a3ac34dd19ee5f0bf6de925a793a1d25a2d361090dafc9b751e1fc",
+    "transformation": "Removed investor identities and historical support counts; taxonomy definitions and labels are unchanged."
   }
 }

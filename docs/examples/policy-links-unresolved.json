@@ -1,0 +1,96 @@
+{
+  "case_id": "case-4f64820af621b926df7ee1ef",
+  "episode_slug": "1-example",
+  "links": [
+    {
+      "applicability_established": false,
+      "comparison_statuses": {
+        "decision_setting": "matches",
+        "geography": "matches",
+        "investor": "matches",
+        "period": "unknown",
+        "sector": "matches",
+        "stage": "matches",
+        "vehicle": "matches"
+      },
+      "comparisons": [
+        {
+          "context_keys": [],
+          "dimension": "investor",
+          "explanation": "Proposed matching context.",
+          "status": "matches"
+        },
+        {
+          "context_keys": [
+            "vehicle"
+          ],
+          "dimension": "vehicle",
+          "explanation": "Proposed matching context.",
+          "status": "matches"
+        },
+        {
+          "context_keys": [
+            "date"
+          ],
+          "dimension": "period",
+          "explanation": "Proposed matching context.",
+          "status": "matches"
+        },
+        {
+          "context_keys": [
+            "stage"
+          ],
+          "dimension": "stage",
+          "explanation": "Proposed matching context.",
+          "status": "matches"
+        },
+        {
+          "context_keys": [
+            "sector"
+          ],
+          "dimension": "sector",
+          "explanation": "Proposed matching context.",
+          "status": "matches"
+        },
+        {
+          "context_keys": [
+            "geography"
+          ],
+          "dimension": "geography",
+          "explanation": "Proposed matching context.",
+          "status": "matches"
+        },
+        {
+          "context_keys": [
+            "decision_setting"
+          ],
+          "dimension": "decision_setting",
+          "explanation": "Proposed matching context.",
+          "status": "matches"
+        }
+      ],
+      "interpretation": "model_inferred",
+      "link_id": "link-7e723798e0d8bdbb6c51de09",
+      "material_differences": [],
+      "policy_id": "pol-test",
+      "rationale_ids": [
+        "rationale-a495b4c24d5a37700fad7635"
+      ],
+      "relationship": "unresolved",
+      "uncertainty": "Model interpretation requires human review. Applicability or interpretation remains unresolved.",
+      "verification": {
+        "accepted": true,
+        "explanation": "Unknown period limits comparison.",
+        "policy_id": "pol-test"
+      }
+    }
+  ],
+  "policy_artifact": {
+    "schema_version": "1.0",
+    "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "rejected": [],
+  "schema_version": "policy-case-links-v1",
+  "status": "available",
+  "unavailable_reason": null
+}

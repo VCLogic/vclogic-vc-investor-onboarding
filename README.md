@@ -89,19 +89,19 @@ OPENROUTER_API_KEY=your-key-here
 
 `.env` and generated bundles are ignored by Git. Supplying `--from-pitch-show` without `--collect-only` authorizes paid model calls. `--decision-model MODEL` overrides the extraction model from the shipped canonical config; it does not change the assessment models.
 
-## Quick start: Mac Conwell with historical retrieval
+## Quick start: Example Investor with historical retrieval
 
-Run steps 1–3 from the onboarding repository. Step 4 runs from the assessment repository.
+The names below are synthetic placeholders; substitute your local wiki slug, actual Pitch Show profile slug, and transcript speaker alias. Run steps 1–3 from the onboarding repository. Step 4 runs from the assessment repository.
 
 ### 1. Prepare the bundle
 
 ```bash
 uv run --extra embeddings investor-onboarding prepare \
-  --wiki ../vclogic-vc-investment-memory/wiki/mac-conwell \
-  --output bundles/mac-conwell-rarebreed-ventures-v2 \
+  --wiki ../vclogic-vc-investment-memory/wiki/example-investor \
+  --output bundles/example-investor-example-ventures-v2 \
   --from-pitch-show \
-  --pitch-show-slug mac-conwell-rarebreed-ventures \
-  --alias Mac
+  --pitch-show-slug example-investor-example-ventures \
+  --alias Example
 ```
 
 This collects matching episodes, extracts and verifies decisions, builds both retrieval indexes, and writes canonical and rehearsal configs. `prepare` requires a **new output directory**. If this version already exists, check it or choose a new version; preparation never overwrites it.
@@ -110,17 +110,17 @@ The three names serve different purposes:
 
 | Name | Meaning |
 | --- | --- |
-| `mac-conwell` | Investor ID from the wiki; use it as the assessment's `--vc` value |
-| `mac-conwell-rarebreed-ventures` | Investor profile slug on The Pitch |
-| `bundles/mac-conwell-rarebreed-ventures-v2` | Your chosen bundle directory; naming it does not change the investor ID |
+| `example-investor` | Investor ID from the wiki; use it as the assessment's `--vc` value |
+| `example-investor-example-ventures` | Investor profile slug on The Pitch |
+| `bundles/example-investor-example-ventures-v2` | Your chosen bundle directory; naming it does not change the investor ID |
 
-`--alias Mac` binds the transcript speaker `Mac` to this investor. For other investors, supply their actual transcript speaker names with repeatable `--alias` flags.
+`--alias Example` binds the transcript speaker `Example` to this investor. For other investors, supply their actual transcript speaker names with repeatable `--alias` flags.
 
 ### 2. Check readiness
 
 ```bash
 uv run investor-onboarding check \
-  --bundle bundles/mac-conwell-rarebreed-ventures-v2
+  --bundle bundles/example-investor-example-ventures-v2
 ```
 
 Before installation for historical assessment, look for:
@@ -136,7 +136,7 @@ Inspect `pitch_show.complete`, failures, and missing transcripts separately. A b
 
 ```bash
 uv run investor-onboarding install \
-  --bundle bundles/mac-conwell-rarebreed-ventures-v2 \
+  --bundle bundles/example-investor-example-ventures-v2 \
   --pipeline-workspace ../vclogic-vc-agentic-assessment
 ```
 
@@ -152,14 +152,35 @@ uv sync --extra embeddings
 
 # Make OPENROUTER_API_KEY available in this shell or this repository's .env.
 uv run --extra embeddings vc-clone-rehearsal start \
-  --config configs/investors/mac-conwell/rehearsal.toml \
-  --vc mac-conwell \
+  --config configs/investors/example-investor/rehearsal.toml \
+  --vc example-investor \
   --pitch /absolute/path/to/founder-pitch.txt \
   --company "Your Company Name" \
   --build-canonical-baseline
 ```
 
-The generated rehearsal config already points to Mac's canonical config. The onboarding `.env` is not installed into the assessment workspace. See the [assessment README](https://github.com/VCLogic/vclogic-vc-agentic-assessment/blob/main/README.md) for the downstream workflow.
+The generated rehearsal config already points to the investor's canonical config. The onboarding `.env` is not installed into the assessment workspace. See the [assessment README](https://github.com/VCLogic/vclogic-vc-agentic-assessment/blob/main/README.md) for the downstream workflow.
+
+## Historical Explanations And Policy Links
+
+New automatic Pitch Show bundles include versioned explanations of the investor’s
+original decision: stated reasons, importance, conditions, explicitly tolerated
+concerns, insufficient strengths, context, and exact transcript evidence. A separate
+model review can reject or downgrade individual interpretations. These remain
+machine-reviewed interpretations, separate from human-audited labels.
+
+When the source wiki contains valid investment-memory `policies.json` v1.0, a later
+step links verified reasons to policies with applicability checks and uncertainty.
+Older wikis still work and report policy linking as unavailable. `check` reports
+semantic coverage separately from technical/index readiness. Explanation and policy
+review add model calls to automatic preparation, including explanations for supplied
+human-reviewed decisions; `--collect-only` still makes no automatic extraction calls.
+
+Existing bundles and assessment indexes remain compatible. Assessment agents need
+an explicit downstream integration to consume the new artifacts. See the
+[schemas, examples, coverage definitions, and assessment handoff](docs/historical-explanations.md),
+including required held-out-company filtering. No prediction-accuracy improvement
+has been established.
 
 ## Collection and indexing options
 
@@ -176,10 +197,10 @@ To collect a small sample without model calls or embedding downloads:
 
 ```bash
 uv run investor-onboarding prepare \
-  --wiki ../vclogic-vc-investment-memory/wiki/mac-conwell \
-  --output bundles/mac-conwell-collected-v1 \
+  --wiki ../vclogic-vc-investment-memory/wiki/example-investor \
+  --output bundles/example-investor-collected-v1 \
   --from-pitch-show \
-  --pitch-show-slug mac-conwell-rarebreed-ventures \
+  --pitch-show-slug example-investor-example-ventures \
   --max-episodes 2 \
   --collect-only \
   --skip-indexes
@@ -189,12 +210,12 @@ Then prepare an enriched version from that cache:
 
 ```bash
 uv run --extra embeddings investor-onboarding prepare \
-  --wiki ../vclogic-vc-investment-memory/wiki/mac-conwell \
-  --output bundles/mac-conwell-sample-ready-v1 \
+  --wiki ../vclogic-vc-investment-memory/wiki/example-investor \
+  --output bundles/example-investor-sample-ready-v1 \
   --from-pitch-show \
-  --pitch-show-slug mac-conwell-rarebreed-ventures \
-  --pitch-show-cache bundles/mac-conwell-collected-v1/source/pitch-show \
-  --alias Mac
+  --pitch-show-slug example-investor-example-ventures \
+  --pitch-show-cache bundles/example-investor-collected-v1/source/pitch-show \
+  --alias Example
 ```
 
 A two-episode cache remains a two-episode sample; using a cache does not expand collection coverage. Supported caches include this tool's `source/pitch-show` directory and the original scraper's `data` directory containing `investors/` and `episodes/`.
@@ -271,7 +292,16 @@ uv build
 
 The test suite uses offline HTTP responses, model doubles and deterministic embedding doubles. It does not require credentials, paid inference or model downloads.
 
-Live validation is documented separately:
+Investor-specific live validation notes are kept locally outside version control.
 
-- [Live collection and initial embedding handoff](docs/validation/2026-09-23-live-collection.md)
-- [Automatic extraction, full Mac collection and historical retrieval handoff](docs/validation/2026-09-23-automatic-precedents.md)
+## Repository Data Policy
+
+This repository publishes pipeline code, generic taxonomy definitions, schemas,
+and synthetic examples only. Keep investor wikis, policies, profiles, transcripts,
+decisions, indexes, bundles, model receipts, credentials, and live validation reports
+in ignored local directories. Never force-add them. Quick-start investor names are
+placeholders, not real profiles. Tests and documentation fixtures must be synthetic.
+
+`.gitignore` does not remove files already committed or erase older Git history.
+Review the staged diff before publishing; historical data removal requires a
+separate history cleanup.

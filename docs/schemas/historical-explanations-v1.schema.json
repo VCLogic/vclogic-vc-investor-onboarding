@@ -1,0 +1,461 @@
+{
+  "$defs": {
+    "AcceptedReason": {
+      "additionalProperties": false,
+      "properties": {
+        "decision_connection": {
+          "items": {
+            "$ref": "#/$defs/Evidence"
+          },
+          "title": "Decision Connection",
+          "type": "array"
+        },
+        "direction": {
+          "enum": [
+            "positive",
+            "negative",
+            "neutral"
+          ],
+          "title": "Direction",
+          "type": "string"
+        },
+        "disposition": {
+          "enum": [
+            "reason",
+            "tolerated_concern",
+            "insufficient_strength",
+            "unresolved_question"
+          ],
+          "title": "Disposition",
+          "type": "string"
+        },
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/Evidence"
+          },
+          "minItems": 1,
+          "title": "Evidence",
+          "type": "array"
+        },
+        "interpretation": {
+          "enum": [
+            "explicit",
+            "inferred"
+          ],
+          "title": "Interpretation",
+          "type": "string"
+        },
+        "key": {
+          "minLength": 1,
+          "title": "Key",
+          "type": "string"
+        },
+        "rationale_id": {
+          "pattern": "^rationale-[0-9a-f]{24}$",
+          "title": "Rationale Id",
+          "type": "string"
+        },
+        "role": {
+          "enum": [
+            "controlling",
+            "supporting",
+            "secondary",
+            "unresolved"
+          ],
+          "title": "Role",
+          "type": "string"
+        },
+        "statement": {
+          "minLength": 1,
+          "title": "Statement",
+          "type": "string"
+        },
+        "taxonomy_labels": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Taxonomy Labels",
+          "type": "array"
+        },
+        "timing": {
+          "enum": [
+            "original",
+            "later_diligence",
+            "retrospective",
+            "unclear"
+          ],
+          "title": "Timing",
+          "type": "string"
+        },
+        "verification": {
+          "$ref": "#/$defs/ReviewItem"
+        }
+      },
+      "required": [
+        "key",
+        "statement",
+        "taxonomy_labels",
+        "direction",
+        "role",
+        "interpretation",
+        "timing",
+        "disposition",
+        "evidence",
+        "decision_connection",
+        "rationale_id",
+        "verification"
+      ],
+      "title": "AcceptedReason",
+      "type": "object"
+    },
+    "ContextFact": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/Evidence"
+          },
+          "minItems": 1,
+          "title": "Evidence",
+          "type": "array"
+        },
+        "field": {
+          "enum": [
+            "date",
+            "vehicle",
+            "role",
+            "stage",
+            "sector",
+            "financing_terms",
+            "geography",
+            "decision_setting"
+          ],
+          "title": "Field",
+          "type": "string"
+        },
+        "key": {
+          "minLength": 1,
+          "title": "Key",
+          "type": "string"
+        },
+        "value": {
+          "minLength": 1,
+          "title": "Value",
+          "type": "string"
+        }
+      },
+      "required": [
+        "key",
+        "field",
+        "value",
+        "evidence"
+      ],
+      "title": "ContextFact",
+      "type": "object"
+    },
+    "Evidence": {
+      "additionalProperties": false,
+      "properties": {
+        "quote": {
+          "minLength": 1,
+          "title": "Quote",
+          "type": "string"
+        },
+        "speaker": {
+          "minLength": 1,
+          "title": "Speaker",
+          "type": "string"
+        },
+        "turn_index": {
+          "minimum": 0,
+          "title": "Turn Index",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "speaker",
+        "turn_index",
+        "quote"
+      ],
+      "title": "Evidence",
+      "type": "object"
+    },
+    "ReviewItem": {
+      "additionalProperties": false,
+      "properties": {
+        "accepted": {
+          "title": "Accepted",
+          "type": "boolean"
+        },
+        "conditions": {
+          "title": "Conditions",
+          "type": "boolean"
+        },
+        "decision_relevance": {
+          "title": "Decision Relevance",
+          "type": "boolean"
+        },
+        "direction": {
+          "title": "Direction",
+          "type": "boolean"
+        },
+        "disposition": {
+          "title": "Disposition",
+          "type": "boolean"
+        },
+        "explanation": {
+          "title": "Explanation",
+          "type": "string"
+        },
+        "importance": {
+          "title": "Importance",
+          "type": "boolean"
+        },
+        "key": {
+          "title": "Key",
+          "type": "string"
+        },
+        "quotation": {
+          "title": "Quotation",
+          "type": "boolean"
+        },
+        "revised_interpretation": {
+          "enum": [
+            "explicit",
+            "inferred"
+          ],
+          "title": "Revised Interpretation",
+          "type": "string"
+        },
+        "revised_role": {
+          "enum": [
+            "controlling",
+            "supporting",
+            "secondary",
+            "unresolved"
+          ],
+          "title": "Revised Role",
+          "type": "string"
+        },
+        "speaker": {
+          "title": "Speaker",
+          "type": "boolean"
+        },
+        "timing": {
+          "title": "Timing",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "key",
+        "accepted",
+        "explanation",
+        "speaker",
+        "quotation",
+        "decision_relevance",
+        "direction",
+        "importance",
+        "disposition",
+        "timing",
+        "conditions",
+        "revised_role",
+        "revised_interpretation"
+      ],
+      "title": "ReviewItem",
+      "type": "object"
+    },
+    "Source": {
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "title": "Path",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "title": "Source",
+      "type": "object"
+    },
+    "Window": {
+      "additionalProperties": false,
+      "properties": {
+        "decision_turn": {
+          "minimum": 0,
+          "title": "Decision Turn",
+          "type": "integer"
+        },
+        "end": {
+          "minimum": 0,
+          "title": "End",
+          "type": "integer"
+        },
+        "explanation": {
+          "title": "Explanation",
+          "type": "string"
+        },
+        "start": {
+          "minimum": 0,
+          "title": "Start",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "start",
+        "end",
+        "decision_turn",
+        "explanation"
+      ],
+      "title": "Window",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "case_id": {
+      "pattern": "^case-[0-9a-f]{24}$",
+      "title": "Case Id",
+      "type": "string"
+    },
+    "context": {
+      "items": {
+        "$ref": "#/$defs/ContextFact"
+      },
+      "title": "Context",
+      "type": "array"
+    },
+    "decision": {
+      "additionalProperties": true,
+      "title": "Decision",
+      "type": "object"
+    },
+    "episode_slug": {
+      "title": "Episode Slug",
+      "type": "string"
+    },
+    "investor_aliases": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Investor Aliases",
+      "type": "array"
+    },
+    "investor_slug": {
+      "title": "Investor Slug",
+      "type": "string"
+    },
+    "missing_information": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Missing Information",
+      "type": "array"
+    },
+    "reasons": {
+      "items": {
+        "$ref": "#/$defs/AcceptedReason"
+      },
+      "title": "Reasons",
+      "type": "array"
+    },
+    "rejected": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Rejected",
+      "type": "array"
+    },
+    "schema_version": {
+      "const": "historical-explanations-v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "separate_timing": {
+      "items": {
+        "$ref": "#/$defs/AcceptedReason"
+      },
+      "title": "Separate Timing",
+      "type": "array"
+    },
+    "source": {
+      "$ref": "#/$defs/Source"
+    },
+    "status": {
+      "enum": [
+        "unavailable",
+        "supported",
+        "no_supported_explanation"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "unavailable_reason": {
+      "anyOf": [
+        {
+          "enum": [
+            "missing_transcript",
+            "oversized_transcript",
+            "decision_unobserved",
+            "verification_failed"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Unavailable Reason"
+    },
+    "verification_basis": {
+      "const": "model_review_not_independent_ground_truth",
+      "title": "Verification Basis",
+      "type": "string"
+    },
+    "verification_failures": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Verification Failures",
+      "type": "array"
+    },
+    "window": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Window"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "case_id",
+    "investor_slug",
+    "episode_slug",
+    "decision",
+    "status",
+    "window",
+    "reasons",
+    "separate_timing",
+    "context",
+    "missing_information",
+    "rejected",
+    "verification_failures",
+    "verification_basis",
+    "source",
+    "investor_aliases"
+  ],
+  "title": "ExplanationArtifact",
+  "type": "object"
+}

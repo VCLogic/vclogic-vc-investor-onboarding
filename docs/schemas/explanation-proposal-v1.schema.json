@@ -1,0 +1,234 @@
+{
+  "$defs": {
+    "ContextFact": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/Evidence"
+          },
+          "minItems": 1,
+          "title": "Evidence",
+          "type": "array"
+        },
+        "field": {
+          "enum": [
+            "date",
+            "vehicle",
+            "role",
+            "stage",
+            "sector",
+            "financing_terms",
+            "geography",
+            "decision_setting"
+          ],
+          "title": "Field",
+          "type": "string"
+        },
+        "key": {
+          "minLength": 1,
+          "title": "Key",
+          "type": "string"
+        },
+        "value": {
+          "minLength": 1,
+          "title": "Value",
+          "type": "string"
+        }
+      },
+      "required": [
+        "key",
+        "field",
+        "value",
+        "evidence"
+      ],
+      "title": "ContextFact",
+      "type": "object"
+    },
+    "Evidence": {
+      "additionalProperties": false,
+      "properties": {
+        "quote": {
+          "minLength": 1,
+          "title": "Quote",
+          "type": "string"
+        },
+        "speaker": {
+          "minLength": 1,
+          "title": "Speaker",
+          "type": "string"
+        },
+        "turn_index": {
+          "minimum": 0,
+          "title": "Turn Index",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "speaker",
+        "turn_index",
+        "quote"
+      ],
+      "title": "Evidence",
+      "type": "object"
+    },
+    "Reason": {
+      "additionalProperties": false,
+      "properties": {
+        "decision_connection": {
+          "items": {
+            "$ref": "#/$defs/Evidence"
+          },
+          "title": "Decision Connection",
+          "type": "array"
+        },
+        "direction": {
+          "enum": [
+            "positive",
+            "negative",
+            "neutral"
+          ],
+          "title": "Direction",
+          "type": "string"
+        },
+        "disposition": {
+          "enum": [
+            "reason",
+            "tolerated_concern",
+            "insufficient_strength",
+            "unresolved_question"
+          ],
+          "title": "Disposition",
+          "type": "string"
+        },
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/Evidence"
+          },
+          "minItems": 1,
+          "title": "Evidence",
+          "type": "array"
+        },
+        "interpretation": {
+          "enum": [
+            "explicit",
+            "inferred"
+          ],
+          "title": "Interpretation",
+          "type": "string"
+        },
+        "key": {
+          "minLength": 1,
+          "title": "Key",
+          "type": "string"
+        },
+        "role": {
+          "enum": [
+            "controlling",
+            "supporting",
+            "secondary",
+            "unresolved"
+          ],
+          "title": "Role",
+          "type": "string"
+        },
+        "statement": {
+          "minLength": 1,
+          "title": "Statement",
+          "type": "string"
+        },
+        "taxonomy_labels": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Taxonomy Labels",
+          "type": "array"
+        },
+        "timing": {
+          "enum": [
+            "original",
+            "later_diligence",
+            "retrospective",
+            "unclear"
+          ],
+          "title": "Timing",
+          "type": "string"
+        }
+      },
+      "required": [
+        "key",
+        "statement",
+        "taxonomy_labels",
+        "direction",
+        "role",
+        "interpretation",
+        "timing",
+        "disposition",
+        "evidence",
+        "decision_connection"
+      ],
+      "title": "Reason",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "context": {
+      "items": {
+        "$ref": "#/$defs/ContextFact"
+      },
+      "title": "Context",
+      "type": "array"
+    },
+    "missing_information": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Missing Information",
+      "type": "array"
+    },
+    "reasons": {
+      "items": {
+        "$ref": "#/$defs/Reason"
+      },
+      "title": "Reasons",
+      "type": "array"
+    },
+    "timing_explanation": {
+      "title": "Timing Explanation",
+      "type": "string"
+    },
+    "window_end": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Window End"
+    },
+    "window_start": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Window Start"
+    }
+  },
+  "required": [
+    "window_start",
+    "window_end",
+    "timing_explanation",
+    "reasons",
+    "context",
+    "missing_information"
+  ],
+  "title": "Draft",
+  "type": "object"
+}

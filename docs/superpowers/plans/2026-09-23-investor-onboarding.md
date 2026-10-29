@@ -15,7 +15,6 @@
 ## Verification
 
 - 31 offline tests pass, including real source validation, engine configuration schemas, reviewed pitch conversion, index completion/failure preservation, and conflict-safe installation.
-- Existing Mac Conwell wiki prepared and checked successfully (43 bundle files); installed into a temporary workspace (44 files including receipt). Generated example is ignored under `bundles/mac-conwell-v1` and explicitly lacks indexes.
 - Wheel and source distribution build successfully.
 - Independent read-only review found no major issues and confirmed reviewed dataset indexes load after relocation. Its minor ledger source-locator finding was fixed and regression-tested.
 - Real embedding model downloads and a live full-site Pitch Show crawl were not run. Collection tests use recorded-shaped offline responses and embedding tests use deterministic doubles.

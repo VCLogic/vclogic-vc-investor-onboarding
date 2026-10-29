@@ -1,0 +1,80 @@
+{
+  "case_id": "case-4f64820af621b926df7ee1ef",
+  "context": [],
+  "decision": {
+    "audit_notes": "Machine reviewed, not human audited.",
+    "condition": null,
+    "decision_context": "initial_panel",
+    "episode_slug": "1-example",
+    "evaluation_eligible": false,
+    "evidence_quote": "I am out because the market is too small.",
+    "evidence_turn_index": 3,
+    "pitch_window_decision": "Out"
+  },
+  "episode_slug": "1-example",
+  "investor_aliases": [
+    "Test"
+  ],
+  "investor_slug": "test-investor",
+  "missing_information": [
+    "Vehicle and case date unknown."
+  ],
+  "reasons": [
+    {
+      "decision_connection": [
+        {
+          "quote": "I am out because the market is too small.",
+          "speaker": "Test",
+          "turn_index": 3
+        }
+      ],
+      "direction": "negative",
+      "disposition": "reason",
+      "evidence": [
+        {
+          "quote": "I am out because the market is too small.",
+          "speaker": "Test",
+          "turn_index": 3
+        }
+      ],
+      "interpretation": "explicit",
+      "key": "market",
+      "rationale_id": "rationale-a495b4c24d5a37700fad7635",
+      "role": "controlling",
+      "statement": "Market size explains rejection.",
+      "taxonomy_labels": [],
+      "timing": "original",
+      "verification": {
+        "accepted": true,
+        "conditions": true,
+        "decision_relevance": true,
+        "direction": true,
+        "disposition": true,
+        "explanation": "Explicit because statement.",
+        "importance": true,
+        "key": "market",
+        "quotation": true,
+        "revised_interpretation": "explicit",
+        "revised_role": "controlling",
+        "speaker": true,
+        "timing": true
+      }
+    }
+  ],
+  "rejected": [],
+  "schema_version": "historical-explanations-v1",
+  "separate_timing": [],
+  "source": {
+    "path": "source/pitch-show/episodes/1-example.json",
+    "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "status": "supported",
+  "verification_basis": "model_review_not_independent_ground_truth",
+  "verification_failures": [],
+  "window": {
+    "decision_turn": 3,
+    "end": 3,
+    "explanation": "Original pitch.",
+    "start": 0
+  }
+}

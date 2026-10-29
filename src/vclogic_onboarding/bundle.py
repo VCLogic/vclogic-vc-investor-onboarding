@@ -126,6 +126,9 @@ def prepare(wiki: Path,output: Path,*,slug=None,display_name=None,firm=None,role
                 from .extraction import enrich_machine
                 extraction=enrich_machine(root,slug,investor_aliases,decision_provider,decision_model)
                 metadata['extraction']=extraction
+                metadata['capabilities']['historical_explanations']=True
+                metadata['capabilities']['policy_case_links']=(root/'source/wiki/policies.json').exists()
+                metadata['semantic_coverage']=extraction['semantic_coverage']
                 metadata['capabilities']['precedents']=extraction['precedent_records']>0
         write_configs(root,slug,precedents=metadata['capabilities']['precedents'])
         if not skip_indexes:
@@ -174,7 +177,15 @@ def check_bundle(bundle: Path) -> dict:
         if capabilities['precedents']:
             PrecedentCorpus.load(root/f'inputs/indexes/{slug}.precedents.json',root/f'inputs/data/investors/{slug}/precedents',
                 _IndexIdentity(),require_complete_embeddings=True)
-    return {'valid':True,'vc_slug':slug,'ready_for_assessment':metadata['ready_for_assessment'],
+    semantic_coverage=None
+    if capabilities.get('historical_explanations'):
+        from .explanation_bundle import validate_explanations
+        semantic_coverage=validate_explanations(root,slug)
+        if semantic_coverage != metadata.get('semantic_coverage'):
+            raise ValueError('bundle semantic coverage mismatch')
+        if capabilities.get('policy_case_links') != (root/'source/wiki/policies.json').exists():
+            raise ValueError('policy capability mismatch')
+    return {'semantic_coverage':semantic_coverage,'valid':True,'vc_slug':slug,'ready_for_assessment':metadata['ready_for_assessment'],
             'capabilities':capabilities,'files':len(actual),'pitch_show':metadata['pitch_show'],
             'extraction':metadata.get('extraction')}
 

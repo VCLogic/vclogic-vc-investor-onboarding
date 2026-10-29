@@ -8,3 +8,33 @@ bundles/
 .cache/
 dist/
 *.egg-info/
+
+# Private runtime inputs, generated investor assets, and local reports.
+/data/
+/inputs/
+/outputs/
+/wiki/
+/onboarding/
+/evaluation/
+/configs/investors/
+/backups/
+/artifacts/
+/docs/validation/
+**/.onboarding-*/
+**/.wiki-cache/
+**/pitch-show/
+**/transcripts/
+**/extraction/
+**/bundle.json
+**/prepared.json
+**/policies.json
+**/machine-decisions.json
+**/corpus-ledger.json
+**/corpus-manifest.json
+*.sqlite
+*.sqlite-*
+*.db
+*.log
+
+# Synthetic fixtures and schemas belong only in tests/fixtures and docs/examples.
+# Do not force-add real investor evidence, profiles, indexes, or model receipts.

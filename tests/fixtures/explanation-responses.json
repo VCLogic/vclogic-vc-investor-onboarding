@@ -1,0 +1,60 @@
+{
+  "proposal": {
+    "context": [],
+    "missing_information": [
+      "Vehicle and case date unknown."
+    ],
+    "reasons": [
+      {
+        "decision_connection": [
+          {
+            "quote": "I am out because the market is too small.",
+            "speaker": "Test",
+            "turn_index": 3
+          }
+        ],
+        "direction": "negative",
+        "disposition": "reason",
+        "evidence": [
+          {
+            "quote": "I am out because the market is too small.",
+            "speaker": "Test",
+            "turn_index": 3
+          }
+        ],
+        "interpretation": "explicit",
+        "key": "market",
+        "role": "controlling",
+        "statement": "Market size explains rejection.",
+        "taxonomy_labels": [],
+        "timing": "original"
+      }
+    ],
+    "timing_explanation": "Original pitch.",
+    "window_end": 3,
+    "window_start": 0
+  },
+  "provenance": "Synthetic offline response fixture; not a real model audit.",
+  "verification": {
+    "context_keys": [],
+    "explanation": "Checked original pitch.",
+    "items": [
+      {
+        "accepted": true,
+        "conditions": true,
+        "decision_relevance": true,
+        "direction": true,
+        "disposition": true,
+        "explanation": "Explicit because statement.",
+        "importance": true,
+        "key": "market",
+        "quotation": true,
+        "revised_interpretation": "explicit",
+        "revised_role": "controlling",
+        "speaker": true,
+        "timing": true
+      }
+    ],
+    "window_verified": true
+  }
+}
